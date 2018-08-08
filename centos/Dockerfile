@@ -2,6 +2,10 @@ FROM centos:7
 MAINTAINER Marco Palladino, marco@mashape.com
 
 ENV KONG_VERSION 0.14.0rc1
+ENV KONG_LUA_PACKAGE_PATH /kong-plugins/?.lua;;
+ENV KONG_CUSTOM_PLUGINS cas-ticket-auth
+
+ADD ../kong/ /kong-plugins/kong/
 
 RUN yum install -y wget https://bintray.com/kong/kong-community-edition-rpm/download_file?file_path=centos/7/kong-community-edition-$KONG_VERSION.el7.noarch.rpm && \
     yum clean all
