@@ -16,6 +16,11 @@ RUN apk add --no-cache --virtual .build-deps wget tar ca-certificates \
 	&& rm -rf /tmp/etc \
 	&& apk del .build-deps
 
+
+ENV KONG_LUA_PACKAGE_PATH /kong-plugins/?.lua;;
+ENV KONG_CUSTOM_PLUGINS cas-ticket-auth,jws-token-auth
+ADD kong/ /kong-plugins/kong/
+
 COPY ssl /ssl
 ENV KONG_SSL_CERT /ssl/cert/STAR_saas-plat_com.crt
 ENV KONG_SSL_CERT_KEY /ssl/saas-plat.key
